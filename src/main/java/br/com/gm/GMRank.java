@@ -22,7 +22,7 @@ package br.com.gm;
 public class GMRank {
 
 	public static void main(String[] args) {
-		byte b[] = { 50 };
+		byte b[] = { 19 };
 		System.out.println(GMStruct.marshalling(b));
 	}
 }

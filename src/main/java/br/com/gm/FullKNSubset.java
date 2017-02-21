@@ -65,7 +65,7 @@ public class FullKNSubset {
 		if (show) {
 			System.out.print(index + "\t");
 			for (int i = 0; i < k; i++) {
-				System.out.print(x[i] + 1 + " ");
+				System.out.print(x[i] + " ");
 			}
 			System.out.print("\t");
 			for (int i = k - 1; i >= 0; i--) {

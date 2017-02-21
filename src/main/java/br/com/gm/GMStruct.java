@@ -47,8 +47,7 @@ public class GMStruct {
 
 	public static int[] compose(GMStruct g) {
 		int[] y = new int[g.k];
-		int q = 0;
-		y[g.k - 1] = g.subset[0] - 1;
+		int q = y[g.k - 1] = g.subset[0];
 		for (int i = 1; i < g.k - 1; i++) {
 			y[g.k - i - 1] = g.subset[i] - g.subset[i - 1] - 1;
 			q += y[g.k - i - 1];
