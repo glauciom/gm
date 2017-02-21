@@ -19,12 +19,13 @@ public class FullKNSubsetTest {
 	
 	@Test
 	public void algorithmTest() {
-		int n = 20, k = 10;
+		int n = 8, k = 3;
 		boolean show = true;
 		FullKNSubset c = new FullKNSubset();
 		long r = System.currentTimeMillis();
 		c.fullKNSubSet(n, k, show);
-		System.out.println(System.currentTimeMillis() - r + "ms");
+		System.out.println();
+		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
 	}
  
 }

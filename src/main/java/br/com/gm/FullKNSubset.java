@@ -22,6 +22,9 @@ package br.com.gm;
  */
 public class FullKNSubset {
 
+	
+	int index;
+	
 	private int sum(int k, int[] y) {
 		int z = 0;
 		for (int i = 0; i < k; i++) {
@@ -54,11 +57,13 @@ public class FullKNSubset {
 	public void fullKNSubSet(int n, int k, boolean show) {
 		int[] x = new int[k];
 		int[] y = new int[k];
+		index = 1;
 		doIt(0, n, k, x, y, show);
 	}
 
 	private int[] show(int k, int[] x, int[] y, boolean show) {
 		if (show) {
+			System.out.print(index + "\t");
 			for (int i = 0; i < k; i++) {
 				System.out.print(x[i] + 1 + " ");
 			}
@@ -67,6 +72,7 @@ public class FullKNSubset {
 				System.out.print(y[i] + " ");
 			}
 			System.out.println();
+			index++;
 		}
 		return x;
 	}

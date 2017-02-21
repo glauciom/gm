@@ -27,7 +27,7 @@ public class GMStruct {
 	private static short BYTE_SIZE = 8;
 
 	int n, k, d;
-	int subset[];
+	int subset[], y[];
 
 	public static GMStruct marshalling(byte[] b) {
 		GMStruct header = new GMStruct();
@@ -41,12 +41,30 @@ public class GMStruct {
 			from = subset[i] + 1;
 		}
 		header.subset = subset;
+		header.y = compose(header);
 		return header;
+	}
+	
+	public static int[] compose(GMStruct g) {
+		int[] y = new int[g.k];
+		int q = 0;
+		for (int i = 0; i < g.k - 1; i++) {
+			if (i == 0) {
+				y[g.k - i - 1] = g.subset[i] - 1;
+			} else {
+				y[g.k - i - 1] = g.subset[i] - g.subset[i-1] - 1;
+			}
+			q += y[g.k - i - 1];
+		}
+		y[0] = g.n - g.k - q;
+		return y;
 	}
 
 	@Override
 	public String toString() {
-		return "GMStruct [n=" + n + ", k=" + k + ", d=" + d + ", subset=" + Arrays.toString(subset) + "]";
+		return "GMStruct [n=" + n + ", k=" + k + ", d=" + d + ", subset=" + Arrays.toString(subset) + ", y="
+				+ Arrays.toString(y) + "]";
 	}
+	
 
 }

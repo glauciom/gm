@@ -21,14 +21,8 @@ package br.com.gm;
  */
 public class GMRank {
 
-	public static void rank(GMStruct g) {
-		// TODO
-		System.out.println(g);
-	}
-
 	public static void main(String[] args) {
 		byte b[] = { 50 };
-		GMStruct s = GMStruct.marshalling(b);
-		GMRank.rank(s);
+		System.out.println(GMStruct.marshalling(b));
 	}
 }
