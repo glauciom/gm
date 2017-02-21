@@ -44,16 +44,13 @@ public class GMStruct {
 		header.y = compose(header);
 		return header;
 	}
-	
+
 	public static int[] compose(GMStruct g) {
 		int[] y = new int[g.k];
 		int q = 0;
-		for (int i = 0; i < g.k - 1; i++) {
-			if (i == 0) {
-				y[g.k - i - 1] = g.subset[i] - 1;
-			} else {
-				y[g.k - i - 1] = g.subset[i] - g.subset[i-1] - 1;
-			}
+		y[g.k - 1] = g.subset[0] - 1;
+		for (int i = 1; i < g.k - 1; i++) {
+			y[g.k - i - 1] = g.subset[i] - g.subset[i - 1] - 1;
 			q += y[g.k - i - 1];
 		}
 		y[0] = g.n - g.k - q;
@@ -65,6 +62,5 @@ public class GMStruct {
 		return "GMStruct [n=" + n + ", k=" + k + ", d=" + d + ", subset=" + Arrays.toString(subset) + ", y="
 				+ Arrays.toString(y) + "]";
 	}
-	
 
 }
