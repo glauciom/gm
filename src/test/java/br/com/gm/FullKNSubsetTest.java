@@ -19,7 +19,7 @@ public class FullKNSubsetTest {
 	
 	@Test
 	public void algorithmTest() {
-		int n = 8, k = 3;
+		int n = 20, k = 10;
 		boolean show = true;
 		FullKNSubset c = new FullKNSubset();
 		long r = System.currentTimeMillis();

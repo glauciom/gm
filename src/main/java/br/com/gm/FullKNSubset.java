@@ -16,6 +16,7 @@ package br.com.gm;
 /**
  * Class responsible for generate all Subsets of size N with K elements.
  * Documentation: https://arxiv.org/pdf/math/0503335.pdf
+ * 
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
@@ -34,6 +35,11 @@ public class FullKNSubset {
 			if (i < k - 1) {
 				doIt(i + 1, n, k, x, y, show);
 			} else {
+				int q = 0;
+				for (int r = 0; r < k - 1; r++) {
+					q += y[r];
+				}
+				y[k - 1] = n - k - q;
 				show(k, x, y, show);
 			}
 		}
@@ -43,12 +49,11 @@ public class FullKNSubset {
 		if (i > 0) {
 			y[i - 1]++;
 		}
-
 	}
 
 	public void fullKNSubSet(int n, int k, boolean show) {
 		int[] x = new int[k];
-		int[] y = new int[k - 1];
+		int[] y = new int[k];
 		doIt(0, n, k, x, y, show);
 	}
 
@@ -58,7 +63,7 @@ public class FullKNSubset {
 				System.out.print(x[i] + 1 + " ");
 			}
 			System.out.print("\t");
-			for (int i = 0; i < k - 1; i++) {
+			for (int i = k - 1; i >= 0; i--) {
 				System.out.print(y[i] + " ");
 			}
 			System.out.println();
