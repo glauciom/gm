@@ -16,7 +16,7 @@ package br.com.gm;
 import java.math.BigInteger;
 
 /**
- * Class responsible for generate all Composition of N into K elements,
+ * Class responsible for generate a Given Composition of N into K elements,
  * Considering their position of the composition list. Documentation:
  * https://arxiv.org/pdf/math/0503335.pdf
  * 
@@ -37,10 +37,10 @@ public class GMRankComposition {
 		composition = new int[k];
 	}
 
-	private int getElement(BigInteger serial, int i, int x, int y) {
+	private int getElement(BigInteger rank, int i, int x, int y) {
 		for (int j = 0; j < n; j++) {
 			BigInteger temp = aproximation.add(GM.C(x - i - j, y - j));
-			if (temp.compareTo(serial) <= 0) {
+			if (temp.compareTo(rank) <= 0) {
 				aproximation = temp;
 			} else {
 				x = x - j;
@@ -51,14 +51,14 @@ public class GMRankComposition {
 		return n;
 	}
 
-	private int[] serialCompositionAlgorithm(BigInteger serial) {
+	public int[] rankCompositionAlgorithm(BigInteger rank) {
 		int complement = 0;
 		aproximation = BigInteger.ZERO;
 		int x = n + k - 2;
 		int y = n;
 		for (int i = 0; i < k - 1; i++) {
 			int r = k - i - 1;
-			composition[r] = getElement(serial, i, x, y);
+			composition[r] = getElement(rank, i, x, y);
 			if (composition[r] != 0) {
 				complement += composition[r];
 			}
@@ -84,7 +84,7 @@ public class GMRankComposition {
 		int k = 3;
 		GMRankComposition test = new GMRankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
-			test.serialCompositionAlgorithm(new BigInteger(String.valueOf(i)));
+			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
 			System.out.println(i + "\t" + test);
 		}
 	}
