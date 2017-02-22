@@ -21,7 +21,7 @@ public class FullKNSubsetTest {
 	public void algorithmTest() {
 		int n = 8, k = 3;
 		boolean show = true;
-		FullKNSubset c = new FullKNSubset();
+		GMFullKNSubset c = new GMFullKNSubset();
 		long r = System.currentTimeMillis();
 		c.fullKNSubSet(n, k, show);
 		System.out.println();

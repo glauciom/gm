@@ -20,7 +20,7 @@ package br.com.gm;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class FullKNSubset {
+public class GMFullKNSubset {
 
 	
 	int index;
