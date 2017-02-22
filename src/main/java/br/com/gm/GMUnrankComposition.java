@@ -26,7 +26,7 @@ import java.math.BigInteger;
 public class GMUnrankComposition {
 
 	private int n, k;
-	private long serial;
+	private BigInteger rank;
 
 	private void prepareAttributes(int[] composition) {
 		this.n = this.k = 0;
@@ -36,43 +36,31 @@ public class GMUnrankComposition {
 		}
 	}
 
-	private long factorial(long r, long op) {
-		long aux = 1;
-		for (long t = r; t > op; t--)
-			aux *= t;
-		return aux;
-	}
-
-	private long getBinomialElements(long r, long s) {
-		if ((r - s) < s)
-			return (factorial(r, s) / factorial(r - s, 1));
-		return (factorial(r, r - s) / factorial(s, 1));
-	}
-
-	public long unserialCompositionAlgorithm(int[] composition) {
+	public BigInteger unrankCompositionAlgorithm(int[] composition) {
 		prepareAttributes(composition);
 		int x = n + k - 2;
 		int y = n;
-		serial = 0;
+		rank = BigInteger.ZERO;
 		for (int i = composition.length - 1; i >= 1; i--) {
-			for (int j = 0; j < composition[i]; j++)
-				serial += (long) getBinomialElements(x - j - ((k - 1) - i), y - j);
+			for (int j = 0; j < composition[i]; j++) {
+				rank = rank.add(GM.C(x - j - ((k - 1) - i), y - j));
+			}
 			x = x - composition[i];
 			y = y - composition[i];
 		}
-		return serial;
+		return rank;
 	}
 
 	public String toString() {
-		return "" + serial;
+		return "" + rank;
 	}
 
-	public long getSerial() {
-		return serial;
+	public BigInteger getRank() {
+		return rank;
 	}
 
-	public long getNumberOfCompositions() {
-		return getBinomialElements(n + k - 1, n);
+	public BigInteger getNumberOfCompositions() {
+		return GM.C(n + k - 1, n);
 	}
 
 	public static void main(String[] args) {
@@ -82,7 +70,7 @@ public class GMUnrankComposition {
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			int[] composition = test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
 			GMUnrankComposition unrankComposition = new GMUnrankComposition();
-			unrankComposition.unserialCompositionAlgorithm(composition);
+			unrankComposition.unrankCompositionAlgorithm(composition);
 			System.out.println(test + "\t" + unrankComposition);
 		}
 	}
