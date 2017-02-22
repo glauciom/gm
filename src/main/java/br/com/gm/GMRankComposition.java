@@ -27,7 +27,7 @@ public class GMRankComposition {
 
 	private int composition[];
 
-	private int n, k;
+	private int n, k, x, y;
 
 	private BigInteger aproximation;
 
@@ -37,7 +37,7 @@ public class GMRankComposition {
 		composition = new int[k];
 	}
 
-	private int getElement(BigInteger rank, int i, int x, int y) {
+	private int getElement(BigInteger rank, int i) {
 		for (int j = 0; j < n; j++) {
 			BigInteger temp = aproximation.add(GM.C(x - i - j, y - j));
 			if (temp.compareTo(rank) <= 0) {
@@ -54,11 +54,11 @@ public class GMRankComposition {
 	public int[] rankCompositionAlgorithm(BigInteger rank) {
 		int complement = 0;
 		aproximation = BigInteger.ZERO;
-		int x = n + k - 2;
-		int y = n;
+		x = n + k - 2;
+		y = n;
 		for (int i = 0; i < k - 1; i++) {
 			int r = k - i - 1;
-			composition[r] = getElement(rank, i, x, y);
+			composition[r] = getElement(rank, i);
 			if (composition[r] != 0) {
 				complement += composition[r];
 			}
@@ -81,7 +81,7 @@ public class GMRankComposition {
 
 	public static void main(String[] args) {
 		int n = 5;
-		int k = 3;
+		int k = 2;
 		GMRankComposition test = new GMRankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));

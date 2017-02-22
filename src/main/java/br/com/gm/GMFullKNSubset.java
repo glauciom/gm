@@ -57,7 +57,7 @@ public class GMFullKNSubset {
 	public void fullKNSubSet(int n, int k, boolean show) {
 		int[] x = new int[k];
 		int[] y = new int[k];
-		index = 1;
+		index = 0;
 		doIt(0, n, k, x, y, show);
 	}
 
@@ -71,6 +71,7 @@ public class GMFullKNSubset {
 			for (int i = k - 1; i >= 0; i--) {
 				System.out.print(y[i] + " ");
 			}
+			System.out.print("\td: " + (x[k-1] - x[k-2] - 1));
 			System.out.println();
 			index++;
 		}
