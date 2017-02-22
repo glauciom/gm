@@ -31,45 +31,38 @@ public class GMRankComposition {
 
 	private BigInteger aproximation;
 
-	private int x, y;
-
-	private int i, j, g, complement;
-
 	public GMRankComposition(int n, int k) {
 		this.n = n;
 		this.k = k;
 		composition = new int[k];
 	}
 
-	private int getElement(BigInteger serial) {
-		for (j = 0; j < n; j++)
-			if (aproximation.add(GM.C(x - i - j, y - j)).compareTo(serial) <= 0)
-				aproximation = aproximation.add(GM.C(x - i - j, y - j));
-			else {
+	private int getElement(BigInteger serial, int i, int x, int y) {
+		for (int j = 0; j < n; j++) {
+			BigInteger temp = aproximation.add(GM.C(x - i - j, y - j));
+			if (temp.compareTo(serial) <= 0) {
+				aproximation = temp;
+			} else {
 				x = x - j;
 				y = y - j;
 				return j;
 			}
+		}
 		return n;
 	}
 
 	private int[] serialCompositionAlgorithm(BigInteger serial) {
-		complement = 0;
+		int complement = 0;
 		aproximation = BigInteger.ZERO;
-		x = n + k - 2;
-		y = n;
-		for (i = 0; i < k - 1; i++) {
-			g = getElement(serial);
-			composition[(int) ((int) k - 1 - i)] = (int) g;
-			if (composition[(int) ((int) k - 1 - i)] != 0)
-				complement += composition[(int) (k - 1 - i)];
+		int x = n + k - 2;
+		int y = n;
+		for (int i = 0; i < k - 1; i++) {
+			composition[k - 1 - i] = getElement(serial, i, x, y);
+			if (composition[k - 1 - i] != 0)
+				complement += composition[k - 1 - i];
 		}
 		composition[0] = (int) (n - complement);
 		return composition;
-	}
-
-	public void serialComposition(BigInteger serial) {
-		composition = serialCompositionAlgorithm(serial);
 	}
 
 	public String toString() {
@@ -84,9 +77,13 @@ public class GMRankComposition {
 	}
 
 	public static void main(String[] args) {
-		GMRankComposition test = new GMRankComposition(5, 3);
+
+		int n = 5;
+		int k = 3;
+
+		GMRankComposition test = new GMRankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
-			test.serialComposition(new BigInteger(String.valueOf(i)));
+			test.serialCompositionAlgorithm(new BigInteger(String.valueOf(i)));
 			System.out.println(i + "\t" + test);
 		}
 	}
