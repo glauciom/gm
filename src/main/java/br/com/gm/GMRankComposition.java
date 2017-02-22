@@ -13,6 +13,8 @@
    limitations under the License.*/
 package br.com.gm;
 
+import java.math.BigInteger;
+
 /**
  * Class responsible for generate all Composition of N into K elements,
  * Considering their position of the composition list. Documentation:
@@ -27,9 +29,11 @@ public class GMRankComposition {
 
 	private int n, k;
 
-	private long aproximation, x, y;
+	private BigInteger aproximation;
 
-	private long i, j, g, complement;
+	private int x, y;
+
+	private int i, j, g, complement;
 
 	public GMRankComposition(int n, int k) {
 		this.n = n;
@@ -37,23 +41,10 @@ public class GMRankComposition {
 		composition = new int[k];
 	}
 
-	private long factorial(long r, long op) {
-		long aux = 1;
-		for (long t = r; t > op; t--)
-			aux *= t;
-		return aux;
-	}
-
-	private long getBinomialElements(long r, long s) {
-		if ((r - s) < s)
-			return (factorial(r, s) / factorial(r - s, 1));
-		return (factorial(r, r - s) / factorial(s, 1));
-	}
-
-	private long getElement(long serial) {
+	private int getElement(BigInteger serial) {
 		for (j = 0; j < n; j++)
-			if ((long) (aproximation + getBinomialElements(x - i - j, y - j)) <= serial)
-				aproximation += getBinomialElements(x - i - j, y - j);
+			if (aproximation.add(GM.C(x - i - j, y - j)).compareTo(serial) <= 0)
+				aproximation = aproximation.add(GM.C(x - i - j, y - j));
 			else {
 				x = x - j;
 				y = y - j;
@@ -62,9 +53,9 @@ public class GMRankComposition {
 		return n;
 	}
 
-	private int[] serialCompositionAlgorithm(long serial) {
+	private int[] serialCompositionAlgorithm(BigInteger serial) {
 		complement = 0;
-		aproximation = 0;
+		aproximation = BigInteger.ZERO;
 		x = n + k - 2;
 		y = n;
 		for (i = 0; i < k - 1; i++) {
@@ -77,8 +68,8 @@ public class GMRankComposition {
 		return composition;
 	}
 
-	public void serialComposition(long serial) {
-		composition = serialCompositionAlgorithm(serial - 1);
+	public void serialComposition(BigInteger serial) {
+		composition = serialCompositionAlgorithm(serial);
 	}
 
 	public String toString() {
@@ -88,14 +79,14 @@ public class GMRankComposition {
 		return k1.toString();
 	}
 
-	public long getNumberOfCompositions() {
-		return getBinomialElements(n + k - 1, n);
+	public BigInteger getNumberOfCompositions() {
+		return GM.C(n + k - 1, n);
 	}
 
 	public static void main(String[] args) {
 		GMRankComposition test = new GMRankComposition(5, 3);
-		for (int i = 1; i <= test.getNumberOfCompositions(); i++) {
-			test.serialComposition(i);
+		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
+			test.serialComposition(new BigInteger(String.valueOf(i)));
 			System.out.println(i + "\t" + test);
 		}
 	}
