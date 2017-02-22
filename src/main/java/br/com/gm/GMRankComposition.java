@@ -57,18 +57,21 @@ public class GMRankComposition {
 		int x = n + k - 2;
 		int y = n;
 		for (int i = 0; i < k - 1; i++) {
-			composition[k - 1 - i] = getElement(serial, i, x, y);
-			if (composition[k - 1 - i] != 0)
-				complement += composition[k - 1 - i];
+			int r = k - i - 1;
+			composition[r] = getElement(serial, i, x, y);
+			if (composition[r] != 0) {
+				complement += composition[r];
+			}
 		}
-		composition[0] = (int) (n - complement);
+		composition[0] = n - complement;
 		return composition;
 	}
 
 	public String toString() {
 		StringBuffer k1 = new StringBuffer();
-		for (int i = 0; i < k; i++)
+		for (int i = 0; i < k; i++) {
 			k1.append(composition[i] + " ");
+		}
 		return k1.toString();
 	}
 
@@ -77,10 +80,8 @@ public class GMRankComposition {
 	}
 
 	public static void main(String[] args) {
-
 		int n = 5;
 		int k = 3;
-
 		GMRankComposition test = new GMRankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			test.serialCompositionAlgorithm(new BigInteger(String.valueOf(i)));
