@@ -15,7 +15,7 @@ package br.com.gm;
 
 import org.junit.Test;
 
-public class FullKNSubsetTest {
+public class GMFullKNSubsetTest {
 	
 	@Test
 	public void algorithmTest() {
