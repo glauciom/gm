@@ -25,27 +25,27 @@ import java.math.BigInteger;
  */
 public class GMRankKNSubset {
 	private int x, y, index;
-	private BigInteger serial, aproximation;
+	private BigInteger rank, aproximation;
 	private int[] subset;
 
-	public int[] serialKNSubsetAlgorithm(String number, int n, int k) {
+	public int[] rankKNSubsetAlgorithm(String number, int n, int k) {
 		this.subset = new int[k];
 		x = n;
 		y = k - 1;
-		serial = new BigInteger(number);
+		rank = new BigInteger(number);
 		aproximation = BigInteger.ZERO;
 		index = 0;
 		for (int i = 0; i < k; i++) {
-			subset[i] = element(serial);
+			subset[i] = element(rank);
 		}
 		return subset;
 	}
 
-	public int element(BigInteger serial) {
+	public int element(BigInteger rank) {
 		BigInteger aux = null;
 		for (int j = 1; j <= x - y + 1; j++) {
 			aux = aproximation.add(GM.C(x - j, y));
-			if (aux.compareTo(serial) <= 0)
+			if (aux.compareTo(rank) <= 0)
 				aproximation = aux;
 			else {
 				x = x - j;
@@ -71,9 +71,13 @@ public class GMRankKNSubset {
 		GMRankKNSubset test = new GMRankKNSubset();
 		int c = GM.C(n, k).intValue();
 		for (int i = 0; i < c; i++) {
-			test.serialKNSubsetAlgorithm(i + "", n, k);
+			test.rankKNSubsetAlgorithm(i + "\t", n, k);
 			System.out.println(i + "\t" + test);
 		}
-
 	}
+
+	public int[] getSubset() {
+		return subset;
+	}
+
 }
