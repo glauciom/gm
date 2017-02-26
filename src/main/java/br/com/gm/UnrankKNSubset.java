@@ -23,12 +23,12 @@ import java.math.BigInteger;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMUnrankKNSubset {
+public class UnrankKNSubset {
 
 	private int n, k;
 	private BigInteger rank;
 
-	public GMUnrankKNSubset(int n) {
+	public UnrankKNSubset(int n) {
 		this.n = n;
 	}
 
@@ -44,7 +44,7 @@ public class GMUnrankKNSubset {
 		rank = BigInteger.ZERO;
 		for (int i = 0; i < subset.length; i++) {
 			for (int j = 1; j < subset[i] - index; j++)
-				rank = rank.add(GM.C(x - j, y));
+				rank = rank.add(BigOperators.C(x - j, y));
 			x = x - (subset[i] - index);
 			y = y - 1;
 			index = subset[i];
@@ -59,9 +59,9 @@ public class GMUnrankKNSubset {
 	public static void main(String[] args) {
 		int n = 5;
 		int k = 3;
-		GMRankKNSubset test = new GMRankKNSubset();
-		int k1 = GM.C(n, k).intValue();
-		GMUnrankKNSubset test1 = new GMUnrankKNSubset(n);
+		RankKNSubset test = new RankKNSubset();
+		int k1 = BigOperators.C(n, k).intValue();
+		UnrankKNSubset test1 = new UnrankKNSubset(n);
 
 		for (int i = 0; i < k1; i++) {
 			test.rankKNSubsetAlgorithm(i + "", n, k);

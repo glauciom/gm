@@ -21,7 +21,7 @@ import java.util.BitSet;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMStruct {
+public class ComposeStruct {
 
 	private static short BYTE_SIZE = 8;
 
@@ -30,8 +30,8 @@ public class GMStruct {
 	byte[] y;
 	static int gap;
 
-	public static GMStruct marshalling(byte[] b) {
-		GMStruct header = new GMStruct();
+	public static ComposeStruct marshalling(byte[] b) {
+		ComposeStruct header = new ComposeStruct();
 		BitSet set = BitSet.valueOf(b);
 		header.n = BYTE_SIZE * b.length;
 		header.k = set.cardinality();
@@ -68,7 +68,7 @@ public class GMStruct {
 		return y;
 	}
 
-	public static byte[] compose(GMStruct g) {
+	public static byte[] compose(ComposeStruct g) {
 		return compose(g.n, g.k, g.subset);
 	}
 

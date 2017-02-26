@@ -31,13 +31,13 @@ import java.util.Map;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  * 
  */
-public class GMRank {
+public class RankAlgorithm {
 
 	public static void main(String[] args) throws IOException {
 
 		Path path = Paths.get(args[0]);
 		byte[] b = Files.readAllBytes(path);
-		GMStruct g = GMStruct.marshalling(b);
+		ComposeStruct g = ComposeStruct.marshalling(b);
 		Map<Byte, Integer> values = new HashMap<Byte, Integer>();
 		for (int i = 0; i < g.y.length; i++) {
 			Integer current = values.get(g.y[i]);

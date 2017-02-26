@@ -23,7 +23,7 @@ import java.math.BigInteger;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMUnrankComposition {
+public class UnrankComposition {
 
 	private int n, k;
 	private BigInteger rank;
@@ -43,7 +43,7 @@ public class GMUnrankComposition {
 		rank = BigInteger.ZERO;
 		for (int i = composition.length - 1; i >= 1; i--) {
 			for (int j = 0; j < composition[i]; j++) {
-				rank = rank.add(GM.C(x - j - ((k - 1) - i), y - j));
+				rank = rank.add(BigOperators.C(x - j - ((k - 1) - i), y - j));
 			}
 			x = x - composition[i];
 			y = y - composition[i];
@@ -60,16 +60,16 @@ public class GMUnrankComposition {
 	}
 
 	public BigInteger getNumberOfCompositions() {
-		return GM.C(n + k - 1, n);
+		return BigOperators.C(n + k - 1, n);
 	}
 
 	public static void main(String[] args) {
 		int n = 5;
 		int k = 3;
-		GMRankComposition test = new GMRankComposition(n, k);
+		RankComposition test = new RankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			int[] composition = test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
-			GMUnrankComposition unrankComposition = new GMUnrankComposition();
+			UnrankComposition unrankComposition = new UnrankComposition();
 			unrankComposition.unrankCompositionAlgorithm(composition);
 			System.out.println(test + "\t" + unrankComposition);
 		}

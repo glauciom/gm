@@ -20,7 +20,7 @@ package br.com.gm;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMFullKNSubset {
+public class RecursiveFullKNSubset {
 
 	int rank;
 
@@ -77,7 +77,7 @@ public class GMFullKNSubset {
 				System.out.print(y[i] + " ");
 			}
 			System.out.print("\t");			
-			byte[] compose = GMStruct.compose(n, k, x);
+			byte[] compose = ComposeStruct.compose(n, k, x);
 			for (int i = 0; i <= k; i++) {
 				System.out.print(compose[i] + " ");
 			}
@@ -90,7 +90,7 @@ public class GMFullKNSubset {
 	public static void main(String[] args) {
 		int n = 8, k = 3;
 		boolean showResults = true;
-		GMFullKNSubset c = new GMFullKNSubset();
+		RecursiveFullKNSubset c = new RecursiveFullKNSubset();
 
 		System.out.println("K-Subset: C(n,k): C(" + n + ", " + k + ")");
 		System.out.println("Composition: C(n, n - k): C(" + n + ", " + (n - k) + ")");

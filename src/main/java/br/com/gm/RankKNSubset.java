@@ -23,7 +23,7 @@ import java.math.BigInteger;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMRankKNSubset {
+public class RankKNSubset {
 	private int x, y, index;
 	private BigInteger rank, aproximation;
 	private int[] subset;
@@ -44,7 +44,7 @@ public class GMRankKNSubset {
 	public int element(BigInteger rank) {
 		BigInteger aux = null;
 		for (int j = 1; j <= x - y + 1; j++) {
-			aux = aproximation.add(GM.C(x - j, y));
+			aux = aproximation.add(BigOperators.C(x - j, y));
 			if (aux.compareTo(rank) <= 0)
 				aproximation = aux;
 			else {
@@ -68,8 +68,8 @@ public class GMRankKNSubset {
 	public static void main(String[] args) {
 		int n = 5;
 		int k = 3;
-		GMRankKNSubset test = new GMRankKNSubset();
-		int c = GM.C(n, k).intValue();
+		RankKNSubset test = new RankKNSubset();
+		int c = BigOperators.C(n, k).intValue();
 		for (int i = 0; i < c; i++) {
 			test.rankKNSubsetAlgorithm(i + "\t", n, k);
 			System.out.println(i + "\t" + test);

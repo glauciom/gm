@@ -13,19 +13,29 @@
    limitations under the License.*/
 package br.com.gm;
 
-import org.junit.Test;
+import java.math.BigInteger;
 
-public class GMFullKNSubsetTest {
-	
-	@Test
-	public void algorithmTest() {
-		int n = 9, k = 3;
-		boolean show = true;
-		GMFullKNSubset c = new GMFullKNSubset();
-		long r = System.currentTimeMillis();
-		c.fullKNSubSet(n, k, show);
-		System.out.println();
-		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
+/**
+ * Class responsible for provide useful combinatorics functions, with Big
+ * Integer support.
+ * 
+ * @author Glaucio Melo (glaucio.melo@gmail.com)
+ * 
+ */
+public final class BigOperators {
+
+	public static String f(int r, int op) {
+		BigInteger aux = BigInteger.ONE;
+		for (int t = r; t > op; t--) {
+			aux = aux.multiply(BigInteger.valueOf((long) t));
+		}
+		return aux.toString();
 	}
- 
+
+	public static BigInteger C(int r, int s) {
+		if ((r - s) < s) {
+			return new BigInteger(f(r, s)).divide(new BigInteger(f(r - s, 1)));
+		}
+		return new BigInteger(f(r, r - s)).divide(new BigInteger(f(s, 1)));
+	}
 }

@@ -23,7 +23,7 @@ import java.math.BigInteger;
  * @author Glaucio Melo (glaucio.melo@gmail.com)
  *
  */
-public class GMRankComposition {
+public class RankComposition {
 
 	private int composition[];
 
@@ -31,7 +31,7 @@ public class GMRankComposition {
 
 	private BigInteger aproximation;
 
-	public GMRankComposition(int n, int k) {
+	public RankComposition(int n, int k) {
 		this.n = n;
 		this.k = k;
 		composition = new int[k];
@@ -39,7 +39,7 @@ public class GMRankComposition {
 
 	private int getElement(BigInteger rank, int i) {
 		for (int j = 0; j < n; j++) {
-			BigInteger temp = aproximation.add(GM.C(x - i - j, y - j));
+			BigInteger temp = aproximation.add(BigOperators.C(x - i - j, y - j));
 			if (temp.compareTo(rank) <= 0) {
 				aproximation = temp;
 			} else {
@@ -76,13 +76,13 @@ public class GMRankComposition {
 	}
 
 	public BigInteger getNumberOfCompositions() {
-		return GM.C(n + k - 1, n);
+		return BigOperators.C(n + k - 1, n);
 	}
 
 	public static void main(String[] args) {
 		int n = 6;
 		int k = 4;
-		GMRankComposition test = new GMRankComposition(n, k);
+		RankComposition test = new RankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
 			System.out.println(i + "\t" + test);
