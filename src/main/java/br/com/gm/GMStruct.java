@@ -13,7 +13,6 @@
    limitations under the License.*/
 package br.com.gm;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 /**
@@ -27,7 +26,9 @@ public class GMStruct {
 	private static short BYTE_SIZE = 8;
 
 	int n, k, d;
-	int subset[], y[];
+	int subset[];
+	byte[] y;
+	static int gap;
 
 	public static GMStruct marshalling(byte[] b) {
 		GMStruct header = new GMStruct();
@@ -45,21 +46,37 @@ public class GMStruct {
 		return header;
 	}
 
-	public static int[] compose(GMStruct g) {
-		int[] y = new int[g.k];
-		int q = y[g.k - 1] = g.subset[0];
-		for (int i = 1; i < g.k - 1; i++) {
-			y[g.k - i - 1] = g.subset[i] - g.subset[i - 1] - 1;
-			q += y[g.k - i - 1];
+	public static byte[] compose(int n, int k, int[] x) {
+		byte[] y = new byte[k + 1];
+		y[k] = (byte) x[0];
+		gap = x[0];
+		for (int i = 1; i < k; i++) {
+			y[k - i] = (byte) (x[i] - x[i - 1] - 1);
+			if (gap < y[k-i]) {
+				gap = y[k-i];
+			}
 		}
-		y[0] = g.n - g.k - q;
+
+		int q = 0;
+		for (int r = 1; r <= k; r++) {
+			q += y[r];
+		}
+		y[0] = (byte) (n - k - q);
+		if (gap < y[0]) {
+			gap = y[0];
+		}
 		return y;
+	}
+
+	public static byte[] compose(GMStruct g) {
+		return compose(g.n, g.k, g.subset);
 	}
 
 	@Override
 	public String toString() {
-		return "GMStruct [n=" + n + ", k=" + k + ", d=" + d + ", subset=" + Arrays.toString(subset) + ", y="
-				+ Arrays.toString(y) + "]";
+		return "GMStruct [n=" + n + ", k=" + k + ", d=" + d + ", gap=" + gap + "]";
 	}
+
+	
 
 }

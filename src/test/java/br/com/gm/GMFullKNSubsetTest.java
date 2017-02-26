@@ -19,7 +19,7 @@ public class GMFullKNSubsetTest {
 	
 	@Test
 	public void algorithmTest() {
-		int n = 8, k = 3;
+		int n = 9, k = 3;
 		boolean show = true;
 		GMFullKNSubset c = new GMFullKNSubset();
 		long r = System.currentTimeMillis();

@@ -22,9 +22,8 @@ package br.com.gm;
  */
 public class GMFullKNSubset {
 
-	
-	int index;
-	
+	int rank;
+
 	private int sum(int k, int[] y) {
 		int z = 0;
 		for (int i = 0; i < k; i++) {
@@ -38,12 +37,18 @@ public class GMFullKNSubset {
 			if (i < k - 1) {
 				doIt(i + 1, n, k, x, y, show);
 			} else {
+				if (k - 1 != 0) {
+					y[k - 1] = x[k - 1] - x[k - 2] - 1;
+				} else {
+					y[k - 1] = x[0];
+				}
 				int q = 0;
-				for (int r = 0; r < k - 1; r++) {
+				for (int r = 0; r < k; r++) {
 					q += y[r];
 				}
-				y[k - 1] = n - k - q;
-				show(k, x, y, show);
+				y[k] = n - k - q;
+
+				show(n, k, x, y, show);
 			}
 		}
 		if (i < k - 1) {
@@ -56,26 +61,45 @@ public class GMFullKNSubset {
 
 	public void fullKNSubSet(int n, int k, boolean show) {
 		int[] x = new int[k];
-		int[] y = new int[k];
-		index = 0;
+		int[] y = new int[k + 1];
+		rank = 0;
 		doIt(0, n, k, x, y, show);
 	}
 
-	private int[] show(int k, int[] x, int[] y, boolean show) {
+	private int[] show(int n, int k, int[] x, int[] y, boolean show) {
 		if (show) {
-			System.out.print(index + "\t");
+			System.out.print(rank + "\t");
 			for (int i = 0; i < k; i++) {
 				System.out.print(x[i] + " ");
 			}
 			System.out.print("\t");
-			for (int i = k - 1; i >= 0; i--) {
+			for (int i = k; i >= 0; i--) {
 				System.out.print(y[i] + " ");
 			}
-			System.out.print("\td: " + (x[k-1] - x[k-2] - 1));
+			System.out.print("\t");			
+			byte[] compose = GMStruct.compose(n, k, x);
+			for (int i = 0; i <= k; i++) {
+				System.out.print(compose[i] + " ");
+			}
 			System.out.println();
-			index++;
+			rank++;
 		}
 		return x;
+	}
+
+	public static void main(String[] args) {
+		int n = 8, k = 3;
+		boolean showResults = true;
+		GMFullKNSubset c = new GMFullKNSubset();
+
+		System.out.println("K-Subset: C(n,k): C(" + n + ", " + k + ")");
+		System.out.println("Composition: C(n, n - k): C(" + n + ", " + (n - k) + ")");
+		System.out.println();
+		long r = System.currentTimeMillis();
+		c.fullKNSubSet(n, k, showResults);
+		System.out.println();
+
+		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
 	}
 
 }

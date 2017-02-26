@@ -80,8 +80,8 @@ public class GMRankComposition {
 	}
 
 	public static void main(String[] args) {
-		int n = 5;
-		int k = 2;
+		int n = 6;
+		int k = 4;
 		GMRankComposition test = new GMRankComposition(n, k);
 		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
 			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
