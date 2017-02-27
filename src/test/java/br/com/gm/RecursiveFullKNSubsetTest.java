@@ -23,7 +23,7 @@ public class RecursiveFullKNSubsetTest {
 		boolean show = true;
 		RecursiveFullKNSubset c = new RecursiveFullKNSubset();
 		long r = System.currentTimeMillis();
-		c.fullKNSubSet(n, k, show);
+		c.fullKNSubSet(n, k, show, 70);
 		System.out.println();
 		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
 	}

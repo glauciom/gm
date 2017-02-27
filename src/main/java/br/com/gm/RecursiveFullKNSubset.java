@@ -24,6 +24,12 @@ public class RecursiveFullKNSubset {
 
 	int rank;
 
+	private int[] identity;
+	private int[] complement;
+	private int[] identityC;
+	private int[] complementC;
+	
+	
 	private int sum(int k, int[] y) {
 		int z = 0;
 		for (int i = 0; i < k; i++) {
@@ -32,10 +38,10 @@ public class RecursiveFullKNSubset {
 		return z + k;
 	}
 
-	private void doIt(int i, int n, int k, int[] x, int[] y, boolean show) {
+	private void doIt(int i, int n, int k, int[] x, int[] y, boolean show, int line) {
 		for (x[i] = sum(i, y); x[i] <= n - (k - i); x[i]++) {
 			if (i < k - 1) {
-				doIt(i + 1, n, k, x, y, show);
+				doIt(i + 1, n, k, x, y, show, line);
 			} else {
 				if (k - 1 != 0) {
 					y[k - 1] = x[k - 1] - x[k - 2] - 1;
@@ -48,7 +54,7 @@ public class RecursiveFullKNSubset {
 				}
 				y[k] = n - k - q;
 
-				show(n, k, x, y, show);
+				show(n, k, x, y, show, line);
 			}
 		}
 		if (i < k - 1) {
@@ -59,16 +65,56 @@ public class RecursiveFullKNSubset {
 		}
 	}
 
-	public void fullKNSubSet(int n, int k, boolean show) {
+	public long G(int[] subset, int[] search) {
+		long result = 0;
+		for (int i = 0; i < subset.length; i++) {
+			result = dc(subset, search, result, i);
+		}
+		return result;
+	}
+
+	public long GL(int[] subset) {
+		return G(subset, identity);
+	}
+
+	public long GU(int[] subset) {
+		return G(subset, complement);
+	}
+	
+	public long GCL(int[] subset) {
+		return G(subset, identityC);
+	}
+
+	public long GCU(int[] subset) {
+		return G(subset, complementC);
+	}
+
+	private long dc(int[] subset, int[] search, long result, int i) {
+		double diff = Math.abs(subset[i] - search[i]);
+		result += (diff * diff);
+		return result;
+	}
+
+	public void fullKNSubSet(int n, int k, boolean show, int line) {
 		int[] x = new int[k];
 		int[] y = new int[k + 1];
 		rank = 0;
-		doIt(0, n, k, x, y, show);
+		this.identity = new int[k];
+		this.complement = new int[k];
+		this.identityC = new int[k + 1];
+		this.complementC = new int[k + 1];
+		identityC[0] = n - k;
+		complementC[k] = n - k;
+		for (int i = 0; i < k; i++) {
+			identity[i] = i;
+			complement[i] = n - k + i;
+		}
+		doIt(0, n, k, x, y, show, line);
 	}
 
-	private int[] show(int n, int k, int[] x, int[] y, boolean show) {
+	private int[] show(int n, int k, int[] x, int[] y, boolean show, int line) {
 		if (show) {
-			System.out.print(rank + "\t");
+			System.out.print(rank + " " + line + " " + GU(x) + " " + GCL(y) + " " + "\t");
 			for (int i = 0; i < k; i++) {
 				System.out.print(x[i] + " ");
 			}
@@ -76,7 +122,7 @@ public class RecursiveFullKNSubset {
 			for (int i = k; i >= 0; i--) {
 				System.out.print(y[i] + " ");
 			}
-			System.out.print("\t");			
+			System.out.print("\t");
 			byte[] compose = ComposeStruct.compose(n, k, x);
 			for (int i = 0; i <= k; i++) {
 				System.out.print(compose[i] + " ");
@@ -88,18 +134,19 @@ public class RecursiveFullKNSubset {
 	}
 
 	public static void main(String[] args) {
-		int n = 8, k = 3;
+		int n = 15, k = 3;
+		int line = 70;
 		boolean showResults = true;
 		RecursiveFullKNSubset c = new RecursiveFullKNSubset();
 
-		System.out.println("K-Subset: C(n,k): C(" + n + ", " + k + ")");
-		System.out.println("Composition: C(n, n - k): C(" + n + ", " + (n - k) + ")");
-		System.out.println();
+//		System.out.println("K-Subset: C(n,k): C(" + n + ", " + k + ")");
+//		System.out.println("Composition: C(n, n - k): C(" + n + ", " + (n - k) + ")");
+//		System.out.println();
 		long r = System.currentTimeMillis();
-		c.fullKNSubSet(n, k, showResults);
+		c.fullKNSubSet(n, k, showResults, line);
 		System.out.println();
 
-		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
+//		System.out.println("Time elapsed: " + (System.currentTimeMillis() - r) + "ms");
 	}
 
 }
