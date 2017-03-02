@@ -106,15 +106,16 @@ public class RecursiveFullKNSubset {
 		identityC[0] = n - k;
 		complementC[k] = n - k;
 		for (int i = 0; i < k; i++) {
-			identity[i] = i;
-			complement[i] = n - k + i;
+			identity[i] = k - i - 1;
+			complement[i] = n - i - 1;
 		}
 		doIt(0, n, k, x, y, show, line);
 	}
 
 	private int[] show(int n, int k, int[] x, int[] y, boolean show, int line) {
 		if (show) {
-			System.out.print(rank + " " + line + " " + GU(x) + " " + GCL(y) + " " + "\t");
+			double d = Math.sqrt(((GL(x) - GU(x)) * (GL(x) - GU(x))));
+			System.out.print(rank + " " + line + " " + GU(x) + " " + GL(x) + " " + "\t");
 			for (int i = 0; i < k; i++) {
 				System.out.print(x[i] + " ");
 			}
@@ -134,8 +135,8 @@ public class RecursiveFullKNSubset {
 	}
 
 	public static void main(String[] args) {
-		int n = 15, k = 3;
-		int line = 70;
+		int n = 8, k = 3;
+		int line = 328;
 		boolean showResults = true;
 		RecursiveFullKNSubset c = new RecursiveFullKNSubset();
 

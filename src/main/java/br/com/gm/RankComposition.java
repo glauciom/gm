@@ -67,6 +67,7 @@ public class RankComposition {
 		return composition;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer k1 = new StringBuffer();
 		for (int i = 0; i < k; i++) {
@@ -80,13 +81,16 @@ public class RankComposition {
 	}
 
 	public static void main(String[] args) {
-		int n = 6;
-		int k = 4;
-		RankComposition test = new RankComposition(n, k);
-		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
-			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
-			System.out.println(i + "\t" + test);
-		}
+		int n = 15;
+		int k = 5;
+//		RankComposition test = new RankComposition(n, k);
+//		for (int i = 0; i < test.getNumberOfCompositions().intValue(); i++) {
+//			test.rankCompositionAlgorithm(new BigInteger(String.valueOf(i)));
+//			System.out.println(i + "\t" + test);
+//		}
+		RankComposition rank = new RankComposition(n, k);
+		rank.rankCompositionAlgorithm(new BigInteger("1706"));
+		System.out.println(rank);
 	}
 
 	public int[] getComposition() {

@@ -39,4 +39,27 @@ public final class BigOperators {
 		return new BigInteger(f(r, r - s)).divide(new BigInteger(f(s, 1)));
 	}
 
+	public static double eq(int n, int k, int[] x) {
+		double result = 0;
+		int d = 0;
+		int b = 1 + k - 2 * n;
+		for (int i = 0; i < k; i++) {
+			d += (x[i] - n + i) * (x[i] - n + i);
+		}
+		double c = ((k / 6.0) * ((2 * k * k) - (3 * k * (2 * n + 1)) + (6 * (n * n)) + (6 * n) + 1));
+		c = c - d;
+
+		for (int i = 0; i < k; i++) {
+			result = result + (2 * x[i] * (n - i) - x[i] * x[i]);
+		}
+		return result - c;
+	}
+
+	public static void main(String[] args) {
+		int n = 30;
+		int[] x = { 3, 5, 7, 8, 9, 10, 13, 17 };
+		int k = x.length;
+		System.out.println(eq(n, k, x));
+	}
+
 }

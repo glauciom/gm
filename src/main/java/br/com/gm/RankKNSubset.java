@@ -45,16 +45,17 @@ public class RankKNSubset {
 		BigInteger aux = null;
 		for (int j = 1; j <= x - y + 1; j++) {
 			aux = aproximation.add(BigOperators.C(x - j, y));
+			System.out.print("C(" + (x - j) + ", " + y + ") ");
 			if (aux.compareTo(rank) <= 0)
 				aproximation = aux;
 			else {
 				x = x - j;
 				y = y - 1;
 				index = index + j;
-				return index;
+				return index - 1;
 			}
 		}
-		return index;
+		return index - 1;
 	}
 
 	public String toString() {
@@ -66,14 +67,17 @@ public class RankKNSubset {
 	}
 
 	public static void main(String[] args) {
-		int n = 5;
+		int n = 8;
 		int k = 3;
-		RankKNSubset test = new RankKNSubset();
-		int c = BigOperators.C(n, k).intValue();
-		for (int i = 0; i < c; i++) {
-			test.rankKNSubsetAlgorithm(i + "\t", n, k);
-			System.out.println(i + "\t" + test);
-		}
+		RankKNSubset rank = new RankKNSubset();
+//		int c = BigOperators.C(n, k).intValue();
+//		for (int i = 0; i < c; i++) {
+//			test.rankKNSubsetAlgorithm(i + "\t", n, k);
+//			System.out.println(i + "\t" + test);
+//		}
+		rank.rankKNSubsetAlgorithm("2000", n, k);
+		System.out.println();
+		System.out.println(rank);
 	}
 
 	public int[] getSubset() {
